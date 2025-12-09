@@ -74,6 +74,41 @@ section h3 {
   margin-bottom: 8px;
 }
 
+/* NUEVO: Estilos para la sección de participantes */
+.participants-section {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.participants-section h5 {
+  margin-bottom: 8px;
+  color: #3949ab;
+  font-size: 1.05em;
+  font-weight: bold;
+}
+
+.participants-list {
+  list-style-type: disc;
+  margin-left: 22px;
+  margin-bottom: 0;
+  color: #333;
+  font-size: 0.97em;
+}
+
+.participants-list li {
+  margin-bottom: 3px;
+  padding-left: 2px;
+}
+
+/* Si no hay participantes, muestra un mensaje sutil */
+.no-participants {
+  color: #888;
+  font-style: italic;
+  font-size: 0.96em;
+  margin-left: 2px;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
