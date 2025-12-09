@@ -32,22 +32,22 @@ document.addEventListener("DOMContentLoaded", () => {
         participantsSection.className = "participants-section";
 
         const participantsTitle = document.createElement("h5");
-        participantsTitle.textContent = "Participantes";
+        participantsTitle.textContent = "Participants";
         participantsSection.appendChild(participantsTitle);
 
         if (details.participants && details.participants.length > 0) {
           const ul = document.createElement("ul");
           ul.className = "participants-list";
-          details.participants.forEach((name) => {
+          details.participants.forEach((participant) => {
             const li = document.createElement("li");
-            li.textContent = name;
+            li.textContent = participant;
             ul.appendChild(li);
           });
           participantsSection.appendChild(ul);
         } else {
           const noParticipants = document.createElement("div");
           noParticipants.className = "no-participants";
-          noParticipants.textContent = "Aún no hay participantes.";
+          noParticipants.textContent = "No participants yet.";
           participantsSection.appendChild(noParticipants);
         }
 
