@@ -37,10 +37,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (details.participants && details.participants.length > 0) {
           const ul = document.createElement("ul");
-          ul.className = "participants-list";
+          ul.className = "participants-list no-bullets";
           details.participants.forEach((participant) => {
             const li = document.createElement("li");
-            li.textContent = participant;
+            li.style.display = "flex";
+            li.style.alignItems = "center";
+            // Email del participante
+            const span = document.createElement("span");
+            span.textContent = participant;
+            // Botón de eliminar
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "delete-participant-btn";
+            deleteBtn.title = "Eliminar participante";
+            deleteBtn.innerHTML = "<span aria-hidden='true' style='font-weight:bold'>&times;</span>"; // icono X minimalista
+            deleteBtn.style.marginLeft = "8px";
+            deleteBtn.style.background = "none";
+            deleteBtn.style.border = "none";
+            deleteBtn.style.color = "#c62828";
+            deleteBtn.style.cursor = "pointer";
+            deleteBtn.style.fontSize = "1.1em";
+            deleteBtn.addEventListener("click", async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (confirm(`¿Seguro que deseas eliminar a ${participant} de ${name}?`)) {
+                try {
+                  const response = await fetch(`/activities/${encodeURIComponent(name)}/unregister?email=${encodeURIComponent(participant)}`, { method: "DELETE" });
+                  if (response.ok) {
+                    li.remove();
+                  } else {
+                    alert("No se pudo eliminar al participante.");
+                  }
+                } catch (err) {
+                  alert("Error al eliminar participante.");
+                }
+              }
+            });
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
             ul.appendChild(li);
           });
           participantsSection.appendChild(ul);
@@ -88,6 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+        // Refrescar la lista de actividades para mostrar el nuevo participante
+        fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";
