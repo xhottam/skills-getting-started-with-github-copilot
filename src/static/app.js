@@ -63,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                   const response = await fetch(`/activities/${encodeURIComponent(name)}/unregister?email=${encodeURIComponent(participant)}`, { method: "DELETE" });
                   if (response.ok) {
-                    li.remove();
+                    // Refrescar la lista de actividades para mostrar el cambio
+                    fetchActivities();
                   } else {
                     alert("No se pudo eliminar al participante.");
                   }
